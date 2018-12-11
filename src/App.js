@@ -33,6 +33,8 @@ class App extends Component {
  
   }
 
+
+
   
 
   render() {
@@ -45,14 +47,12 @@ class App extends Component {
               <p class="introCopy">Compare your favourite author's highest and lowest rated books. See where they peaked and plunged throughout their literary career.</p>
               <Form handleSubmit={this.handleSubmit} handleChange={this.handleChange} authorSearch={this.state.authorSearch} /> 
             </header>
-          
           </div>
 
-
-            <div className="wrapper">
-              <Route path="/bookresults" render={() => 
-              <BookResults authorSubmit={this.state.authorSubmit} />} />       
-            </div>                           
+          <div className="wrapper">
+            <Route path="/bookresults" render={() => 
+            <BookResults authorSubmit={this.state.authorSubmit} />} />  
+          </div>                           
 
           <footer>
             <p className="corpTitle">SabreHawk <span>&</span> Baggins est. 2018</p>

@@ -5,6 +5,10 @@ import Chart from "./Chart.js";
 import axios from "axios";
 import Qs from 'qs';
 
+const scrollToElement = require('scroll-to-element');
+
+scrollToElement('#id');
+
 
 class BookResults extends Component {
     constructor() {
@@ -37,15 +41,18 @@ class BookResults extends Component {
                 textReviewCount: 0,
                 talkScore: 0
             },
-            active: false
+            active: false,
+            activeTwo: false
         })
     }
 
-        
-
     componentDidMount(){
         this.getData(this.props.authorSubmit);
-
+        scrollToElement('.card', {
+            offset: -200,
+            ease: 'outCube',
+            duration: 2000
+        });
     }
 
     //  first Axios call, setting
@@ -212,7 +219,8 @@ class BookResults extends Component {
 
    onClick = (e) => {
        this.setState({ 
-           active: !this.state.active
+           active: !this.state.active,
+           activeTwo: !this.state.activeTwo,
         });
         console.log(this.state.active);
     }
@@ -220,8 +228,7 @@ class BookResults extends Component {
     render() {      
         return(           
             <div className="resultContainer clearfix"> 
-                         
-                <div className="bookHero highNovel borderAccent">
+                <div className="bookHero highNovel novel borderAccent">
                     <h2>HIGHEST RATED</h2>
                     <div className={(this.state.active) ? 'flipper' : 'noFlipper'}>
                     <div className="card">
@@ -249,8 +256,9 @@ class BookResults extends Component {
                     {/* LOW BOOK */}
                     <div className="bookHero highNovel borderAccent">
                         <h2>LOWEST RATED</h2>
+                    <div className={(this.state.activeTwo) ? 'flipper' : 'noFlipper'}>
                         <div className="card">
-                            <div className="front face">
+                            <div className="front face" onClick={this.onClick}>
                                 <h3>{`${this.state.lowBook.title}`}</h3>
                                 <div className="bookStats">
                                     <p>Year: {`${this.state.lowBook.year}`}</p>
@@ -262,11 +270,12 @@ class BookResults extends Component {
                                     <p>Talk Score: {`${this.state.lowBook.talkScore}`}</p>
                                 </div>                   
                             </div>  
-                            <div className="back face center">
+                            <div onClick={this.onClick} className={(this.state.activeTwo) ? 'noFlipper back face center' : 'flipper back face center'}>
                                 <h3>Description: </h3>
                                 <p dangerouslySetInnerHTML={{ __html: this.state.lowBook.description }}></p>
                             </div>
                         </div> 
+                    </div>
                     </div> 
 
                     <div className="borderAccent">
