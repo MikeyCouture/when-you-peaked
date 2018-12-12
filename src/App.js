@@ -31,9 +31,6 @@ class App extends Component {
      authorSubmit: this.state.authorSearch
     })
   }
-
-
-
   
 
   render() {
